@@ -13,11 +13,11 @@ def draw_setka():
     y = 0
     y_y = 600
     for i in range(22):
-        pygame.draw.line(screen, (255, 255, 255), (x, y), (x, y_y), 2)
+        pygame.draw.line(screen, (0, 0, 0), (x, y), (x, y_y), 2)
         x += 40
     x = 0
     for i2 in range(22):
-        pygame.draw.line(screen, (255, 255, 255), (x, y), (x_x, y), 2)
+        pygame.draw.line(screen, (0, 0, 0), (x, y), (x_x, y), 2)
         y += 40
 #класс героя, элемента хвоста, яблока
 class Zmey():
@@ -25,7 +25,6 @@ class Zmey():
         self.xpos = xpos
         self.ypos = ypos
         self.bitmap = pygame.image.load(filename)
-
     def render(self):
         screen.blit(self.bitmap, (self.xpos * 40 + 2,self.ypos * 40 + 2))
 #движение хвоста
@@ -104,4 +103,4 @@ while done:
     apple.render()
     window.blit(screen, (0, 0))
     pygame.display.flip()
-    pygame.time.delay(300)
+    pygame.time.delay(50)

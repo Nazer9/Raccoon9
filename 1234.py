@@ -1,43 +1,52 @@
-# -*- coding:utf-8 -*-
-import pygame
-import time
-import random
 import sys
+from PyQt5.QtWidgets import QWidget, QMessageBox, QPushButton, QApplication
+from PyQt5.QtCore import QCoreApplication
 
-size=(800, 600)
-screen=pygame.display.set_mode(size)
-pygame.display.set_caption("Snake")
+class Example(QWidget):
 
-done=False
+    def __init__(self):
+        super().__init__()
 
-while not done:
-    for event in pygame.event.get():
-        if event.type==pygame.QUIT:
-            done=True
+        self.initUI()
 
-    def draw_setka():
-        x = 0
-        x_x = 800
-        y = 0
-        y_y = 800
-        for i in range(22):
-            pygame.draw.line(screen, (255, 255, 255), (x, y), (x, y_y), 2)
-            x += 40
-        x = 0
-        for i2 in range(22):
-            pygame.draw.line(screen, (255, 255, 255), (x, y), (x_x, y), 2)
-            y += 40
 
-    class Zmey():
-        def __init__(self, xpos, ypos, filename):
-            self.xpos = xpos
-            self.ypos = ypos
-            self.bitmap = pygame.image.load(filename)
-        def render(self):
-            screen.blit(self.bitmap, (self.xpos * 40 + 2,self.ypos * 40 + 2))
+def initUI(self):
+    qbtn = QPushButton('Вихід', self)
+    qbtn_1 = QPushButton('Нова гра', self)
+    qbtn_2 = QPushButton('Інструкція до гри', self)
+    qbtn.clicked.connect(QCoreApplication.instance().quit)
+    #qbtn_1.clicked.connect(QCoreApplication.instance())
+    qbtn_2.clicked.connect(self.help)
+    qbtn.resize(300,100)
+    qbtn_1.resize(300, 100)
+    qbtn_2.resize(300, 100)
+    qbtn.move(250, 320)
+    qbtn_1.move(250, 120)
+    qbtn_2.move(250, 220)
+    self.setGeometry(280, 50, 800, 600)
+    self.setWindowTitle('Меню')
+    self.show()
 
-    screen.fill((0, 0, 0))
-    draw_setka()
-    pygame.display.flip()
+def help(self):
+    f=open("help.txt","r")
+    #print(f.read())
+    t=f.read()
+    msg = QMessageBox()
+    msg.setText(t)
+    #msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+    #msg.show()
+    retval = msg.exec_()
 
-pygame.quit()
+def closeEvent(self, event):
+    reply = QMessageBox.question(self, 'Вихід з гри', "Ви точно хочете покинути гру?", QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+    if reply == QMessageBox.Yes:
+        event.accept()
+    else:
+        event.ignore()
+
+
+if __name__ == '__main__':
+    app = QApplication(sys.argv)
+    ex = Example()
+    sys.exit(app.exec_())
